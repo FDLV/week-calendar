@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const is_color_choose = ref(false);
 const day = ref(null);

@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['btn_click']);
+const emit = defineEmits(["btn_click"]);
 </script>
 
 <style scoped>
@@ -22,7 +22,7 @@ const emit = defineEmits(['btn_click']);
   cursor: pointer;
   border: solid 1px #caa691;
   background-color: transparent;
-  background-image: url('@/assets/color.svg');
+  background-image: url("@/assets/color.svg");
   background-size: cover;
   background-repeat: no-repeat;
 }

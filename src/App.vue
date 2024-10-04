@@ -1,31 +1,35 @@
 <template>
   <ColorsChoose v-if="is_color_choose" />
+  <div class="btn__wrapper">
+    <BtnDownload @btn_click="convert" />
+    <BtnVisibility :is_visible="is_btns" @btn_click="hide_or_show" />
+  </div>
   <div class="app__wrapper">
-    <button @click="convert">convert</button>
-    <button @click="hide">hide</button>
     <Calendar />
   </div>
 </template>
 
 <script setup>
-import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
-import { saveAs } from 'file-saver';
-import ColorsChoose from '@/components/ColorsChoose.vue';
-import Calendar from './components/Calendar.vue';
-import { useColors } from '@/composables/useColors.js';
-import { useCalendar } from '@/composables/useCalendar.js';
+import * as htmlToImage from "html-to-image";
+import { toPng } from "html-to-image";
+import { saveAs } from "file-saver";
+import ColorsChoose from "@/components/ColorsChoose.vue";
+import Calendar from "./components/Calendar.vue";
+import { useColors } from "@/composables/useColors.js";
+import { useCalendar } from "@/composables/useCalendar.js";
+import BtnDownload from "./components/BtnDownload.vue";
+import BtnVisibility from "./components/BtnVisibility.vue";
 
 const { is_btns } = useCalendar();
 
 const { is_color_choose } = useColors();
 
-const hide = () => (is_btns.value = !is_btns.value);
+const hide_or_show = () => (is_btns.value = !is_btns.value);
 
 const convert = async () => {
-  const node = document.getElementById('calendar');
+  const node = document.getElementById("calendar");
   const dataUrl = await htmlToImage.toPng(node);
-  saveAs(dataUrl, 'calendar.png');
+  saveAs(dataUrl, "calendar.png");
 };
 </script>
 
@@ -35,28 +39,23 @@ const convert = async () => {
   margin: 0 auto 2rem;
 }
 
+.btn__wrapper {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  padding: 12px;
+  background-color: #e4d2c8;
+}
+
 .app__wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 1200px;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+  margin-top: 48px;
 }
 </style>

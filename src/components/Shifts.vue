@@ -7,10 +7,11 @@
     <div
       v-if="props.data.place !== null"
       class="shift__text"
-      @click="set_shift_name(null)">
+      @click="set_shift_name(null)"
+    >
       {{ props.data.place }}
     </div>
-    <InputDays v-else @input="(name) => set_shift_name(name)" />
+    <InputField v-else @input="(name) => set_shift_name(name)" />
 
     <div v-if="props.data.trainings.length !== 0" class="shift__trainings">
       <Trainings
@@ -19,25 +20,28 @@
         :data="training"
         :day_number="props.day_number"
         :shift_number="props.shift_number"
-        :training_number="i" />
-      <BtnAddShift
+        :training_number="i"
+      />
+      <BtnAdd
         v-if="props.data.trainings.length < max_trainings"
-        @btn_click="add_training()" />
+        @btn_click="add_training()"
+      />
     </div>
-    <BtnAddShift
+    <BtnAdd
       v-else-if="props.data.trainings.length < max_trainings"
-      @btn_click="add_training()" />
+      @btn_click="add_training()"
+    />
   </div>
 </template>
 
 <script setup>
-import InputDays from '@/components/InputDays.vue';
-import BtnAddShift from '@/components/BtnAddShift.vue';
-import BtnMove from '@/components/BtnMove.vue';
-import BtnDelete from '@/components/BtnDelete.vue';
-import Trainings from '@/components/Trainings.vue';
-import { set_local_storage_calendar_data } from '@/localstorage/storage.js';
-import { useCalendar } from '@/composables/useCalendar.js';
+import InputField from "@/components/InputField.vue";
+import BtnAdd from "@/components/BtnAdd.vue";
+import BtnMove from "@/components/BtnMove.vue";
+import BtnDelete from "@/components/BtnDelete.vue";
+import Trainings from "@/components/Trainings.vue";
+import { set_local_storage_calendar_data } from "@/localstorage/storage.js";
+import { useCalendar } from "@/composables/useCalendar.js";
 
 const { calendar_data, max_trainings, is_btns } = useCalendar();
 
@@ -47,7 +51,7 @@ const props = defineProps({
   shift_number: Number,
 });
 
-const emit = defineEmits(['input']);
+const emit = defineEmits(["input"]);
 
 const set_shift_name = (name) => {
   calendar_data.value[props.day_number].shifts[props.shift_number].place = name;
@@ -62,7 +66,7 @@ const delete_shift = () => {
 const add_training = () => {
   calendar_data.value[props.day_number].shifts[
     props.shift_number
-  ].trainings.push({ name: null, time: null, color: '#fff' });
+  ].trainings.push({ name: null, time: null, color: "#fff" });
   set_local_storage_calendar_data(calendar_data.value);
 };
 </script>

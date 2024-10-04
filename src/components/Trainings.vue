@@ -7,21 +7,24 @@
           calendar_data[day_number].shifts[shift_number].trainings[
             training_number
           ].color,
-      }">
+      }"
+    >
       <div
         v-if="training_name !== null && training_name !== undefined"
         @click="set_training_name(null)"
-        class="trainings__text-name">
+        class="trainings__text-name"
+      >
         {{ training_name }}
       </div>
-      <InputDays v-else @input="(name) => set_training_name(name)" />
+      <InputField v-else @input="(name) => set_training_name(name)" />
       <div
         v-if="training_time !== null && training_time !== undefined"
         @click="set_training_time(null)"
-        class="trainings__text-time">
+        class="trainings__text-time"
+      >
         {{ training_time }}
       </div>
-      <InputDays v-else @input="(time) => set_training_time(time)" />
+      <InputField v-else @input="(time) => set_training_time(time)" />
     </div>
     <div v-if="is_btns" class="shift__btns-wrapper">
       <BtnMove @btn_click="" />
@@ -32,14 +35,14 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import InputDays from '@/components/InputDays.vue';
-import BtnMove from '@/components/BtnMove.vue';
-import BtnColor from '@/components/BtnColor.vue';
-import BtnDelete from '@/components/BtnDelete.vue';
-import { set_local_storage_calendar_data } from '@/localstorage/storage.js';
-import { useCalendar } from '@/composables/useCalendar.js';
-import { useColors } from '@/composables/useColors.js';
+import { computed } from "vue";
+import InputField from "@/components/InputField.vue";
+import BtnMove from "@/components/BtnMove.vue";
+import BtnColor from "@/components/BtnColor.vue";
+import BtnDelete from "@/components/BtnDelete.vue";
+import { set_local_storage_calendar_data } from "@/localstorage/storage.js";
+import { useCalendar } from "@/composables/useCalendar.js";
+import { useColors } from "@/composables/useColors.js";
 
 const { calendar_data, is_btns } = useCalendar();
 const { open_colors_choose, save_training_number } = useColors();
@@ -51,7 +54,7 @@ const props = defineProps({
   training_number: Number,
 });
 
-const emit = defineEmits(['input']);
+const emit = defineEmits(["input"]);
 
 const training_name = computed(() => {
   if (props.day_number === undefined) return;

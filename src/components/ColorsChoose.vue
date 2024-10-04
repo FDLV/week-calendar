@@ -7,15 +7,15 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
-import { set_local_storage_calendar_data } from '@/localstorage/storage.js';
-import { Swatches } from '@lk77/vue3-color';
-import { useColors } from '@/composables/useColors.js';
-import { useCalendar } from '@/composables/useCalendar.js';
+import { ref, watch } from "vue";
+import { set_local_storage_calendar_data } from "@/localstorage/storage.js";
+import { Swatches } from "@lk77/vue3-color";
+import { useColors } from "@/composables/useColors.js";
+import { useCalendar } from "@/composables/useCalendar.js";
 
 const { close_colors_choose, day, shift, training } = useColors();
 const { calendar_data } = useCalendar();
-const colors = ref('#fff');
+const colors = ref("#fff");
 
 watch(colors, (val) => {
   calendar_data.value[day.value].shifts[shift.value].trainings[

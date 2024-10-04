@@ -1,6 +1,6 @@
 <template>
-  <div class="btn-delete__wrapper">
-    <button class="btn-delete" @click="emit('btn_click')"></button>
+  <div class="btn-download__wrapper">
+    <button class="btn-download" @click="emit('btn_click')"></button>
   </div>
 </template>
 
@@ -9,21 +9,26 @@ const emit = defineEmits(["btn_click"]);
 </script>
 
 <style scoped>
-.btn-delete__wrapper {
+.btn-download__wrapper {
   display: flex;
   justify-content: center;
   padding: 4px;
 }
 
-.btn-delete {
+.btn-download {
   width: 24px;
   height: 24px;
   border-radius: 4px;
   cursor: pointer;
-  border: solid 1px #caa691;
+  box-shadow: 1px 1px 2px 2px #caa691;
+  border: none;
   background-color: transparent;
-  background-image: url("@/assets/delete.svg");
+  background-image: url("@/assets/download.svg");
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.btn-download:active {
+  box-shadow: none;
 }
 </style>

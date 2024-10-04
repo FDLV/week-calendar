@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-import { ref } from 'vue';
-import { get_local_storage } from '@/localstorage/storage.js';
+import { ref } from "vue";
+import { get_local_storage } from "@/localstorage/storage.js";
 
 const calendar_name = ref(null);
 const calendar_data = ref(null);
@@ -14,7 +14,6 @@ export const useCalendar = () => {
 
   const initialize_calendar_data_structure = () => {
     const result = get_local_storage();
-    console.log(result);
 
     // имя
     if (result.name === null) calendar_name.value == null;

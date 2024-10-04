@@ -4,11 +4,12 @@
       <div
         v-if="calendar_name !== null"
         class="calendar-title__text"
-        @click="set_calendar_title(null)">
+        @click="set_calendar_title(null)"
+      >
         {{ calendar_name }}
       </div>
       <div v-else class="calendar-header__day-input-wrapper">
-        <InputDays @input="(data) => set_calendar_title(data)" />
+        <InputField @input="(data) => set_calendar_title(data)" />
       </div>
     </div>
     <div class="calendar-body">
@@ -16,21 +17,24 @@
         <div
           class="calendar-header__week-day"
           v-for="day in week_days"
-          :key="day">
+          :key="day"
+        >
           {{ day }}
         </div>
         <div
           class="calendar-header__day"
           v-for="(day, i) in calendar_data"
-          :key="i">
+          :key="i"
+        >
           <div
             v-if="day.name !== null"
             class="calendar-header__day-text"
-            @click="set_calendar_day(null, i)">
+            @click="set_calendar_day(null, i)"
+          >
             {{ day.name }}
           </div>
           <div v-else class="calendar-header__day-input-wrapper">
-            <InputDays @input="(data) => set_calendar_day(data, i)" />
+            <InputField @input="(data) => set_calendar_day(data, i)" />
           </div>
         </div>
       </div>
@@ -38,19 +42,22 @@
         <div
           class="calendar-main__day"
           v-for="(day, i) in calendar_data"
-          :key="i">
+          :key="i"
+        >
           <div v-if="day.shifts.length !== 0" class="calendar-main__day-shift">
             <Shifts
               v-for="(shift, j) in day.shifts"
               :key="j"
               :data="shift"
               :day_number="i"
-              :shift_number="j" />
-            <BtnAddShift
+              :shift_number="j"
+            />
+            <BtnAdd
               v-if="day.shifts.length < max_shifts"
-              @btn_click="add_shift(i)" />
+              @btn_click="add_shift(i)"
+            />
           </div>
-          <BtnAddShift v-else @btn_click="add_shift(i)" />
+          <BtnAdd v-else @btn_click="add_shift(i)" />
         </div>
       </div>
     </div>
@@ -58,15 +65,15 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import InputDays from '@/components/InputDays.vue';
-import BtnAddShift from '@/components/BtnAddShift.vue';
-import Shifts from '@/components/Shifts.vue';
-import { useCalendar } from '@/composables/useCalendar.js';
+import { onMounted, ref } from "vue";
+import InputField from "@/components/InputField.vue";
+import BtnAdd from "@/components/BtnAdd.vue";
+import Shifts from "@/components/Shifts.vue";
+import { useCalendar } from "@/composables/useCalendar.js";
 import {
   set_local_storage_calendar_name,
   set_local_storage_calendar_data,
-} from '@/localstorage/storage.js';
+} from "@/localstorage/storage.js";
 
 const {
   initialize_calendar_data_structure,
@@ -75,7 +82,7 @@ const {
   max_shifts,
 } = useCalendar();
 
-const week_days = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
+const week_days = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 
 const set_calendar_title = (data) => {
   calendar_name.value = data;
@@ -102,6 +109,7 @@ onMounted(() => {
   padding: 4px;
   display: flex;
   flex-direction: column;
+  row-gap: 12px;
   align-items: center;
   background: #f2e9e4;
   font-family: Caveat;
@@ -116,7 +124,9 @@ onMounted(() => {
 }
 
 .calendar-title__text {
-  font-size: 38px;
+  font-size: 64px;
+  line-height: 64px;
+  margin-bottom: 12px;
   font-weight: 600;
 }
 
@@ -135,19 +145,24 @@ onMounted(() => {
   align-items: center;
   font-size: 24px;
   font-weight: 600;
-  height: 28px;
   min-width: 0;
 }
 
+.calendar-header__day {
+  /* height: 52px; */
+}
+
 .calendar-header__week-day {
+  height: 28px;
   justify-content: center;
 }
 
 .calendar-header__day-text {
   display: flex;
+  font-size: 46px;
+  line-height: 46px;
   width: 100%;
   align-items: center;
-  height: 100%;
   min-width: 0;
   overflow: hidden;
   white-space: nowrap;
