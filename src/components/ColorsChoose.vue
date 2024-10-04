@@ -32,6 +32,7 @@ watch(colors, (val) => {
   width: 100%;
   height: 100%;
   background-color: rgb(126, 114, 85, 0.2);
+  z-index: 1;
 }
 
 .colors-choose {
