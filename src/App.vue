@@ -49,6 +49,7 @@ const convert = async () => {
   height: 48px;
   padding: 12px;
   background-color: #e4d2c8;
+  z-index: 0;
 }
 
 .app__wrapper {
